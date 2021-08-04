@@ -1,0 +1,43 @@
+﻿@model IEnumerable<GuitarDairy.Domain.Entities.Entry>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Exercise)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Duration)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Exercise.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Duration)
+                </td>
+                <td>
+                    @item.Date.ToString("yyyy/MM/dd")
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
