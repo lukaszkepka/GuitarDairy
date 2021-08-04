@@ -7,9 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GuitarDairy.Domain", "Guita
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GuitarDairy.Application", "GuitarDaiy.Application\GuitarDairy.Application.csproj", "{85BA9815-9F25-47E9-822F-83B1085978B1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GuitarDairy.UI.Web", "GuitarDairy.UI.Web\GuitarDairy.UI.Web.csproj", "{C63E5251-8E0F-4DDA-98DD-A24DA372FC05}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GuitarDairy.UI.Web", "GuitarDairy.UI.Web\GuitarDairy.UI.Web.csproj", "{C63E5251-8E0F-4DDA-98DD-A24DA372FC05}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GuitarDairy.Infrastructure.EF", "GuitarDairy.Infrastructure\GuitarDairy.Infrastructure.EF.csproj", "{1BC55EC2-AD48-4DE7-90A9-06EEAEE2A734}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GuitarDairy.Infrastructure.EF", "GuitarDairy.Infrastructure\GuitarDairy.Infrastructure.EF.csproj", "{1BC55EC2-AD48-4DE7-90A9-06EEAEE2A734}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GuitarDairy.UnitTests", "GuitarDairy.UnitTests\GuitarDairy.UnitTests.csproj", "{709D9A86-BFE1-4651-A0C3-BAF752E8EACF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{1BC55EC2-AD48-4DE7-90A9-06EEAEE2A734}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1BC55EC2-AD48-4DE7-90A9-06EEAEE2A734}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1BC55EC2-AD48-4DE7-90A9-06EEAEE2A734}.Release|Any CPU.Build.0 = Release|Any CPU
+		{709D9A86-BFE1-4651-A0C3-BAF752E8EACF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{709D9A86-BFE1-4651-A0C3-BAF752E8EACF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{709D9A86-BFE1-4651-A0C3-BAF752E8EACF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{709D9A86-BFE1-4651-A0C3-BAF752E8EACF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

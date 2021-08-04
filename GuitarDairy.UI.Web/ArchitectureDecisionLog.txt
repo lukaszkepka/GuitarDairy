@@ -1,3 +1,5 @@
-﻿Domain -> Application -> Controller, entity 
-Controller -> View -> VM, 
+﻿01.08.2021
+----------
+Domain -> Application -> Controller, entity 
+Controller -> View -> ViewModel, 
 https://entityframework.net/knowledge-base/21554977/should-services-always-return-dtos--or-can-they-also-return-domain-models-
