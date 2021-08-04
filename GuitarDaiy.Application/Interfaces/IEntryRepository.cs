@@ -9,5 +9,6 @@ namespace GuitarDairy.Application.Interfaces
 {
     public interface IEntryRepository : ICRUDRepository<Entry>
     {
+        Task<List<Entry>> AllBetween(DateTime from, DateTime to);
     }
 }

@@ -7,12 +7,19 @@ using System.Threading.Tasks;
 
 namespace GuitarDairy.Domain.Entities
 {
-    public class MonthSummary
+    public class MonthSummary : PeriodSummary
     {
-        public MonthDate Month { get; set; }
+        public MonthDate Date { get; }
+        public ICollection<DaySummary> PerDaySummaries { get; }
 
-        public TimeSpan TotalTime { get; }
-
-        public ICollection<DaySummary> Days { get; set; }
+        public MonthSummary(MonthDate date, IEnumerable<Entry> entries)
+            : base(date.ToDayRange(), entries)
+        {
+            Date = date;
+            PerDaySummaries = entries.OrderBy(x => x.Date)
+                .GroupBy(x => x.Date)
+                .Select(x => DaySummary.FromEntries(x.Key, x))
+                .ToList();
+        }       
     }
 }

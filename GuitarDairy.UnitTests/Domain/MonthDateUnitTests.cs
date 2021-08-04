@@ -3,7 +3,7 @@ using GuitarDairy.Domain.ValueObjects;
 using System;
 using Xunit;
 
-namespace GuitarDairy.UnitTests
+namespace GuitarDairy.UnitTests.Domain
 {
     public class MonthDateUnitTests
     {

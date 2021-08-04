@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GuitarDairy.Infrastructure.EF.Migrations
 {
     [DbContext(typeof(GuitarDairyContext))]
-    [Migration("20210731205241_Initial")]
-    partial class Initial
+    [Migration("20210804141047_0.0.2")]
+    partial class _002
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -73,7 +73,7 @@ namespace GuitarDairy.Infrastructure.EF.Migrations
                         .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("Date")
+                    b.Property<DateTime?>("Date")
                         .HasColumnType("datetime2");
 
                     b.Property<TimeSpan>("Duration")
@@ -81,9 +81,6 @@ namespace GuitarDairy.Infrastructure.EF.Migrations
 
                     b.Property<long>("ExerciseId")
                         .HasColumnType("bigint");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<long>("UserId")
                         .HasColumnType("bigint");
@@ -98,7 +95,7 @@ namespace GuitarDairy.Infrastructure.EF.Migrations
                         new
                         {
                             Id = 1L,
-                            Date = new DateTime(2021, 7, 31, 0, 0, 0, 0, DateTimeKind.Local),
+                            Date = new DateTime(2021, 8, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Duration = new TimeSpan(0, 0, 30, 0, 0),
                             ExerciseId = 1L,
                             UserId = 0L
@@ -106,7 +103,7 @@ namespace GuitarDairy.Infrastructure.EF.Migrations
                         new
                         {
                             Id = 2L,
-                            Date = new DateTime(2021, 7, 31, 0, 0, 0, 0, DateTimeKind.Local),
+                            Date = new DateTime(2021, 8, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Duration = new TimeSpan(0, 0, 30, 0, 0),
                             ExerciseId = 2L,
                             UserId = 0L
@@ -114,7 +111,7 @@ namespace GuitarDairy.Infrastructure.EF.Migrations
                         new
                         {
                             Id = 3L,
-                            Date = new DateTime(2021, 7, 31, 0, 0, 0, 0, DateTimeKind.Local),
+                            Date = new DateTime(2021, 8, 4, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Duration = new TimeSpan(0, 0, 30, 0, 0),
                             ExerciseId = 3L,
                             UserId = 0L

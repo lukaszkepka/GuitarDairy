@@ -16,5 +16,10 @@ namespace GuitarDairy.Domain.Entities
         public string Description { get; set; }
         public Category Category { get; set; }
         public ICollection<Entry> Entries { get; set; }
+
+        public Exercise()
+        {
+            Entries = new List<Entry>();
+        }
     }
 }

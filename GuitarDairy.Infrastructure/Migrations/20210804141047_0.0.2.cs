@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace GuitarDairy.Infrastructure.EF.Migrations
 {
-    public partial class Initial : Migration
+    public partial class _002 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -50,9 +50,8 @@ namespace GuitarDairy.Infrastructure.EF.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<long>(type: "bigint", nullable: false),
                     ExerciseId = table.Column<long>(type: "bigint", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Duration = table.Column<TimeSpan>(type: "time", nullable: false),
-                    Date = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    Date = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -94,18 +93,18 @@ namespace GuitarDairy.Infrastructure.EF.Migrations
 
             migrationBuilder.InsertData(
                 table: "Entries",
-                columns: new[] { "Id", "Date", "Duration", "ExerciseId", "Name", "UserId" },
-                values: new object[] { 2L, new DateTime(2021, 7, 31, 0, 0, 0, 0, DateTimeKind.Local), new TimeSpan(0, 0, 30, 0, 0), 2L, null, 0L });
+                columns: new[] { "Id", "Date", "Duration", "ExerciseId", "UserId" },
+                values: new object[] { 2L, new DateTime(2021, 8, 4, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 30, 0, 0), 2L, 0L });
 
             migrationBuilder.InsertData(
                 table: "Entries",
-                columns: new[] { "Id", "Date", "Duration", "ExerciseId", "Name", "UserId" },
-                values: new object[] { 3L, new DateTime(2021, 7, 31, 0, 0, 0, 0, DateTimeKind.Local), new TimeSpan(0, 0, 30, 0, 0), 3L, null, 0L });
+                columns: new[] { "Id", "Date", "Duration", "ExerciseId", "UserId" },
+                values: new object[] { 3L, new DateTime(2021, 8, 4, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 30, 0, 0), 3L, 0L });
 
             migrationBuilder.InsertData(
                 table: "Entries",
-                columns: new[] { "Id", "Date", "Duration", "ExerciseId", "Name", "UserId" },
-                values: new object[] { 1L, new DateTime(2021, 7, 31, 0, 0, 0, 0, DateTimeKind.Local), new TimeSpan(0, 0, 30, 0, 0), 1L, null, 0L });
+                columns: new[] { "Id", "Date", "Duration", "ExerciseId", "UserId" },
+                values: new object[] { 1L, new DateTime(2021, 8, 4, 0, 0, 0, 0, DateTimeKind.Unspecified), new TimeSpan(0, 0, 30, 0, 0), 1L, 0L });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Entries_ExerciseId",

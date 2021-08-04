@@ -1,6 +1,8 @@
 ﻿using GuitarDairy.Domain.Entities;
+using GuitarDairy.Domain.ValueObjects;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using System;
 
 namespace GuitarDairy.Infrastructure.EF.Mapping
 {
@@ -15,6 +17,10 @@ namespace GuitarDairy.Infrastructure.EF.Mapping
             builder.HasOne(t => t.Exercise)
                 .WithMany(t => t.Entries)
                 .HasForeignKey(t => t.ExerciseId);
+
+            // Properties
+            builder.Property(e => e.Date)
+                .HasConversion(x => (DateTime)x, y => y);
         }
     }
 }

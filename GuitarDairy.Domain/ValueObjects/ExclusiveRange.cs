@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace GuitarDairy.Domain.ValueObjects
 {
-    public struct ExclusiveRange<T> where T : IEquatable<T>
+    public struct ExclusiveRange<T> where T : IComparable<T>
     {
         public T From { get; }
         public T To { get; }
 
         private ExclusiveRange(T from, T to)
         {
-            if(Comparer<T>.Default.Compare(to, from) <= 0)
+            if(Comparer<T>.Default.Compare(to, from) < 0)
             {
                 throw new ArgumentException($"Range \"from\" border must be lesser than \"to\" border. Was {from}-{to}");
             }
@@ -36,6 +36,11 @@ namespace GuitarDairy.Domain.ValueObjects
         {
             return Comparer<T>.Default.Compare(number, From) < 0 ||
                    Comparer<T>.Default.Compare(number, To) > 0;
+        }
+
+        public override string ToString()
+        {
+            return $"<{From}-{To}>";
         }
     }
 }

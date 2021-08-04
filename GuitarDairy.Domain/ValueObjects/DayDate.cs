@@ -2,7 +2,7 @@
 
 namespace GuitarDairy.Domain.ValueObjects
 {
-    public class DayDate : MonthDate
+    public class DayDate : MonthDate, IComparable<DayDate>
     {
         public int Day { get; }
 
@@ -14,10 +14,11 @@ namespace GuitarDairy.Domain.ValueObjects
 
         private void ValidateDay(int day, int month, int year)
         {
-            var daysInMonth = DateTime.DaysInMonth(year, month);
-            if (ExclusiveRange<int>.Create(1, daysInMonth).DoesNotContain(day))
+            var validDaysRange = ExclusiveRange<int>.Create(1, DateTime.DaysInMonth(year, month));
+
+            if (validDaysRange.DoesNotContain(day))
             {
-                throw new ArgumentOutOfRangeException($"Month should be in range <1-{daysInMonth}>");
+                throw new ArgumentOutOfRangeException($"Month should be in range {validDaysRange}");
             }
         }
 
@@ -29,6 +30,28 @@ namespace GuitarDairy.Domain.ValueObjects
         public static implicit operator DateTime(DayDate dayDate)
         {
             return new DateTime(dayDate.Year, dayDate.Month, dayDate.Day);
+        }
+
+        public static bool operator >=(DayDate item1, DayDate item2) => (DateTime)item1 >= (DateTime)item2;
+
+        public static bool operator <=(DayDate item1, DayDate item2) => (DateTime)item1 <= (DateTime)item2;
+
+        public static bool operator >(DayDate item1, DayDate item2) => (DateTime)item1 > (DateTime)item2;
+
+        public static bool operator <(DayDate item1, DayDate item2) => (DateTime)item1 < (DateTime)item2;
+
+        public static bool operator ==(DayDate item1, DayDate item2) => (DateTime)item1 == (DateTime)item2;
+
+        public static bool operator !=(DayDate item1, DayDate item2) => (DateTime)item1 != (DateTime)item2;
+
+        public int CompareTo(DayDate other)
+        {
+            return ((DateTime)this).CompareTo(other);
+        }
+
+        public override string ToString()
+        {
+            return ((DateTime)this).ToString("dd/MM/yyyy");
         }
     }
 }

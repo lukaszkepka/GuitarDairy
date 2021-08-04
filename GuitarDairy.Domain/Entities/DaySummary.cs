@@ -1,30 +1,21 @@
 ﻿using GuitarDairy.Domain.ValueObjects;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace GuitarDairy.Domain.Entities
 {
-    public class DaySummary
+    public class DaySummary : PeriodSummary
     {
         public DayDate Date { get; }
-        public ICollection<Entry> Entries { get; }
 
-        private DaySummary(DayDate date, IEnumerable<Entry> entries)
+        private DaySummary(DayDate date, IEnumerable<Entry> entries) 
+            : base(ExclusiveRange<DayDate>.Create(date, date), entries)
         {
             Date = date;
-            Entries = entries.ToList();
         }
-        
-        //public static FromEntries(IEnumerable<Entry> entries)
-        //{
-        //    var date = entries.Select(x => x.Date.Date).Distinct()
-        //    if (date is null)
-        //    {
-        //        throw new ArgumentException();
-        //    }
 
-        //    return new DaySummary()
-        //}
+        public static DaySummary FromEntries(DayDate date, IEnumerable<Entry> entries)
+        {
+            return new DaySummary(date, entries);
+        }
     }
 }

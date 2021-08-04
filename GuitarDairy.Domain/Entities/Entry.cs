@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GuitarDairy.Domain.ValueObjects;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,6 +14,6 @@ namespace GuitarDairy.Domain.Entities
         public long ExerciseId { get; set; }
         public Exercise Exercise { get; set; }
         public TimeSpan Duration { get; set; }
-        public DateTime Date { get; set; }
+        public DayDate Date { get; set; }
     }
 }

@@ -6,11 +6,13 @@ using System.Threading.Tasks;
 
 namespace GuitarDairy.Domain.ValueObjects
 {
-
-    public class MonthDate
+    public class MonthDate : IComparable<MonthDate>
     {
         public int Month { get; }
         public int Year { get; }
+
+        private static readonly ExclusiveRange<int> ValidYearsRange = ExclusiveRange<int>.Create(1, 9999);
+        private static readonly ExclusiveRange<int> ValidMonthsRange = ExclusiveRange<int>.Create(1, 12);
 
         public MonthDate(int month, int year)
         {
@@ -21,20 +23,32 @@ namespace GuitarDairy.Domain.ValueObjects
             Year = year;
         }
 
+        public ExclusiveRange<DayDate> ToDayRange()
+        {
+            var start = new DayDate(1, Month, Year);
+            var end = new DayDate(DateTime.DaysInMonth(Year, Month), Month, Year);
+            return ExclusiveRange<DayDate>.Create(start, end);
+        }
+
         private void ValidateMonth(int month)
         {
-            if (ExclusiveRange<int>.Create(1, 12).DoesNotContain(month))
+            if (ValidMonthsRange.DoesNotContain(month))
             {
-                throw new ArgumentOutOfRangeException("Month should be in range <1-12>");
+                throw new ArgumentOutOfRangeException($"Month should be in range {ValidMonthsRange}");
             }
         }
 
         private void ValidateYear(int year)
         {
-            if (ExclusiveRange<int>.Create(1, 9999).DoesNotContain(year))
+            if (ValidYearsRange.DoesNotContain(year))
             {
-                throw new ArgumentOutOfRangeException("Year should be in range <1-9999>");
+                throw new ArgumentOutOfRangeException($"Year should be in range {ValidYearsRange}");
             }
+        }      
+
+        public static implicit operator DateTime(MonthDate dateTime)
+        {
+            return new DateTime(dateTime.Year, dateTime.Month, 1);
         }
 
         public static implicit operator MonthDate(DateTime dateTime)
@@ -42,9 +56,26 @@ namespace GuitarDairy.Domain.ValueObjects
             return new MonthDate(dateTime.Month, dateTime.Year);
         }
 
-        public static implicit operator DateTime(MonthDate dateTime)
+        public static bool operator >=(MonthDate item1, MonthDate item2) => (DateTime)item1 >= (DateTime)item2;
+
+        public static bool operator <=(MonthDate item1, MonthDate item2) => (DateTime)item1 <= (DateTime)item2;
+
+        public static bool operator >(MonthDate item1, MonthDate item2) => (DateTime)item1 > (DateTime)item2;
+
+        public static bool operator <(MonthDate item1, MonthDate item2) => (DateTime)item1 < (DateTime)item2;
+
+        public static bool operator ==(MonthDate item1, MonthDate item2) => (DateTime)item1 == (DateTime)item2;
+
+        public static bool operator !=(MonthDate item1, MonthDate item2) => (DateTime)item1 != (DateTime)item2;
+
+        public int CompareTo(MonthDate other)
         {
-            return new DateTime(dateTime.Year, dateTime.Month, 1);
+            return ((DateTime)this).CompareTo(other);
+        }
+
+        public override string ToString()
+        {
+            return ((DateTime)this).ToString("MM/yyyy");
         }
     }
 }
