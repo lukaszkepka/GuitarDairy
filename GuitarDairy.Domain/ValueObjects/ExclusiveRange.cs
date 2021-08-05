@@ -40,7 +40,7 @@ namespace GuitarDairy.Domain.ValueObjects
 
         public override string ToString()
         {
-            return $"<{From}-{To}>";
+            return $"<{From} - {To}>";
         }
     }
 }

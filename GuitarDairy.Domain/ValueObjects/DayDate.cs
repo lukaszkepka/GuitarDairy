@@ -29,6 +29,11 @@ namespace GuitarDairy.Domain.ValueObjects
 
         public static implicit operator DateTime(DayDate dayDate)
         {
+            if(dayDate is null)
+            {
+                return new DateTime();
+            }
+
             return new DateTime(dayDate.Year, dayDate.Month, dayDate.Day);
         }
 

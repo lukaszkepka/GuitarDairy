@@ -23,8 +23,8 @@ namespace GuitarDairy.UI.Web.Controllers
         // GET: Entries
         public async Task<IActionResult> Index()
         {
-            var guitarDairyContext = _context.Entries.Include(e => e.Exercise);
-            return View(await guitarDairyContext.ToListAsync());
+            var guitarDairyContext = await _context.Entries.Include(e => e.Exercise).ToListAsync();
+            return View(guitarDairyContext);
         }
 
         // GET: Entries/Create

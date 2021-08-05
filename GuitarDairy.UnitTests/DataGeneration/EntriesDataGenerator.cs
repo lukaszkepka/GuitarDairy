@@ -60,7 +60,8 @@ namespace GuitarDairy.UnitTests.DataGeneration
                     {
                         Duration = _duration,
                         Date = itemsPerDate.Key,
-                        Exercise = exercise
+                        Exercise = exercise,
+                        ExerciseId = exercise.Id
                     };
                 }
             }

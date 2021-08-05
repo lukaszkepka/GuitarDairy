@@ -29,11 +29,11 @@ namespace GuitarDairy.UnitTests.Application
             // Arrange
             var date = new DateTime(2020, 4, 10);
 
-            var exercise = ExerciseDataGenerator.GenerateFromName("E1");
-            var entries = EntriesDataGenerator.Generate(exercise, new[]
-            {
-                Tuple.Create(date, 10),
-            }).ToList();
+            var entries = EntryDataGenerator.New()
+                .SetupExerciseCount(1)
+                .SetupItemsCount(date, 10)
+                .Generate()
+                .ToList();
 
             _entryRepositoryMock
                 .Setup(x => x.AllBetween(It.IsAny<DateTime>(), It.IsAny<DateTime>()))
@@ -48,7 +48,7 @@ namespace GuitarDairy.UnitTests.Application
                     .AllBetween(It.Is<DateTime>(x => x == new DateTime(2020, 4, 1)),
                                 It.Is<DateTime>(x => x == new DateTime(2020, 4, 30))), Times.Once);
 
-            summary.Entries.Should().HaveCount(entries.Count);
+            summary.Should().NotBeNull();
         }
     }
 }

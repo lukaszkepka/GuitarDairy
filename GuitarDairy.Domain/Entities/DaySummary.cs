@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace GuitarDairy.Domain.Entities
 {
-    public class DaySummary : PeriodSummary
+    public class DaySummary : EntriesSummary
     {
         public DayDate Date { get; }
 

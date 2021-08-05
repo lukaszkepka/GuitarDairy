@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GuitarDairy.Domain.Entities
 {
-    public class MonthSummary : PeriodSummary
+    public class MonthSummary : EntriesSummary
     {
         public MonthDate Date { get; }
         public ICollection<DaySummary> PerDaySummaries { get; }

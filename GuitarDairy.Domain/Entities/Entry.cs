@@ -15,5 +15,10 @@ namespace GuitarDairy.Domain.Entities
         public Exercise Exercise { get; set; }
         public TimeSpan Duration { get; set; }
         public DayDate Date { get; set; }
+
+        public override string ToString()
+        {
+            return $"ExerciseId={ExerciseId} Date={Date} Duration={Duration}";
+        }
     }
 }
