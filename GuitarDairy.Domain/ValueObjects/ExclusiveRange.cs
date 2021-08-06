@@ -6,12 +6,24 @@ using System.Threading.Tasks;
 
 namespace GuitarDairy.Domain.ValueObjects
 {
-    public struct ExclusiveRange<T> where T : IComparable<T>
+    //public record DaysRange : ExclusiveRange<DayDate>
+    //{
+    //    protected DaysRange(ExclusiveRange<DayDate> original) : base(original)
+    //    {
+    //    }
+
+    //    public static DaysRange CreateFor(MonthDate monthDate)
+    //    {
+    //        return new DaysRange(monthDate.);
+    //    }
+    //}
+
+    public record ExclusiveRange<T> where T : IComparable<T>
     {
         public T From { get; }
         public T To { get; }
 
-        private ExclusiveRange(T from, T to)
+        protected ExclusiveRange(T from, T to)
         {
             if(Comparer<T>.Default.Compare(to, from) < 0)
             {

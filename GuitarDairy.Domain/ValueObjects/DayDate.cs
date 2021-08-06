@@ -2,7 +2,7 @@
 
 namespace GuitarDairy.Domain.ValueObjects
 {
-    public class DayDate : MonthDate, IComparable<DayDate>
+    public record DayDate : MonthDate, IComparable<DayDate>
     {
         public int Day { get; }
 
@@ -10,6 +10,11 @@ namespace GuitarDairy.Domain.ValueObjects
         {
             ValidateDay(day, month, year);
             Day = day;
+        }
+
+        public DayDate NextDay()
+        {
+            return ((DateTime)this).AddDays(1);
         }
 
         private void ValidateDay(int day, int month, int year)
@@ -45,18 +50,9 @@ namespace GuitarDairy.Domain.ValueObjects
 
         public static bool operator <(DayDate item1, DayDate item2) => (DateTime)item1 < (DateTime)item2;
 
-        public static bool operator ==(DayDate item1, DayDate item2) => (DateTime)item1 == (DateTime)item2;
-
-        public static bool operator !=(DayDate item1, DayDate item2) => (DateTime)item1 != (DateTime)item2;
-
         public int CompareTo(DayDate other)
         {
             return ((DateTime)this).CompareTo(other);
-        }
-
-        public override string ToString()
-        {
-            return ((DateTime)this).ToString("dd/MM/yyyy");
         }
     }
 }

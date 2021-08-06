@@ -19,6 +19,7 @@ namespace GuitarDairy.Infrastructure.EF.Repositories
         public Task<List<Entry>> AllBetween(DateTime from, DateTime to)
         {
             return this.DbSet
+                .Include(x => x.Exercise)
                 .Where(x => (DateTime)x.Date >= from && (DateTime)x.Date <= to)
                 .ToListAsync();
         }

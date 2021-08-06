@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GuitarDairy.Domain.ValueObjects
 {
-    public class MonthDate : IComparable<MonthDate>
+    public record MonthDate : IComparable<MonthDate>
     {
         public int Month { get; }
         public int Year { get; }
@@ -16,11 +16,16 @@ namespace GuitarDairy.Domain.ValueObjects
 
         public MonthDate(int month, int year)
         {
-            ValidateMonth(month);
-            ValidateYear(year);
-
             Month = month;
             Year = year;
+
+            ValidateMonth(month);
+            ValidateYear(year);
+        }
+
+        public static MonthDate FromDateTime(DateTime dateTime)
+        {
+            return dateTime;
         }
 
         public ExclusiveRange<DayDate> ToDayRange()
@@ -30,7 +35,12 @@ namespace GuitarDairy.Domain.ValueObjects
             return ExclusiveRange<DayDate>.Create(start, end);
         }
 
-        private void ValidateMonth(int month)
+        public IEnumerable<DayDate> Days()
+        {
+            return Enumerable.Range(1,DateTime.DaysInMonth(Year, Month)).Select(x => new DayDate(x, Month, Year));
+        }
+
+        private static void ValidateMonth(int month)
         {
             if (ValidMonthsRange.DoesNotContain(month))
             {
@@ -38,7 +48,7 @@ namespace GuitarDairy.Domain.ValueObjects
             }
         }
 
-        private void ValidateYear(int year)
+        private static void ValidateYear(int year)
         {
             if (ValidYearsRange.DoesNotContain(year))
             {
@@ -64,18 +74,9 @@ namespace GuitarDairy.Domain.ValueObjects
 
         public static bool operator <(MonthDate item1, MonthDate item2) => (DateTime)item1 < (DateTime)item2;
 
-        public static bool operator ==(MonthDate item1, MonthDate item2) => (DateTime)item1 == (DateTime)item2;
-
-        public static bool operator !=(MonthDate item1, MonthDate item2) => (DateTime)item1 != (DateTime)item2;
-
         public int CompareTo(MonthDate other)
         {
             return ((DateTime)this).CompareTo(other);
-        }
-
-        public override string ToString()
-        {
-            return ((DateTime)this).ToString("MM/yyyy");
         }
     }
 }

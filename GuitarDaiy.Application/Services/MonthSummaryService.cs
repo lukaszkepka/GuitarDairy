@@ -1,4 +1,5 @@
 ﻿using GuitarDairy.Application.Interfaces;
+using GuitarDairy.Application.Services.Interfaces;
 using GuitarDairy.Domain.Entities;
 using GuitarDairy.Domain.ValueObjects;
 using System;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace GuitarDairy.Application.Services
 {
-    public class MonthSummaryService
+    public class MonthSummaryService : IMonthSummaryService
     {
         private readonly IEntryRepository _entryRepository;
 
@@ -23,7 +24,7 @@ namespace GuitarDairy.Application.Services
             var dateRange = month.ToDayRange();
             var entriesInMonth = await _entryRepository.AllBetween(dateRange.From, dateRange.To);
 
-            return new MonthSummary(month, entriesInMonth);
+            return MonthSummary.FromEntries(month, entriesInMonth);
         }
     }
 }

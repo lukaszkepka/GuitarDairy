@@ -50,6 +50,7 @@ namespace GuitarDairy.UI.Web
             services.AddScoped<IExerciseService, ExerciseService>();
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<IEntryService, EntryService>();
+            services.AddScoped<IMonthSummaryService, MonthSummaryService>();
 
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<UserContext>();

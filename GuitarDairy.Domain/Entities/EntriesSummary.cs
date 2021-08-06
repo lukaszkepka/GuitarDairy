@@ -10,7 +10,7 @@ namespace GuitarDairy.Domain.Entities
     {
         private readonly List<Entry> _entries;
 
-        public IEnumerable<ExerciseSummary> ExerciseSummaries => _entries.GetPerExerciseSummary();
+        public List<ExerciseSummary> ExerciseSummaries => _entries.GetPerExerciseSummary().ToList();
 
         public TimeSpan TotalTimeSpent => _entries.TotalTimeSpent();
 

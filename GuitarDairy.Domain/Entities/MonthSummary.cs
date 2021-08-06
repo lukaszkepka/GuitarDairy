@@ -1,5 +1,4 @@
 ﻿using GuitarDairy.Domain.ValueObjects;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,14 +11,18 @@ namespace GuitarDairy.Domain.Entities
         public MonthDate Date { get; }
         public ICollection<DaySummary> PerDaySummaries { get; }
 
-        public MonthSummary(MonthDate date, IEnumerable<Entry> entries)
-            : base(date.ToDayRange(), entries)
-        {
-            Date = date;
-            PerDaySummaries = entries.OrderBy(x => x.Date)
-                .GroupBy(x => x.Date)
-                .Select(x => DaySummary.FromEntries(x.Key, x))
+        private MonthSummary(MonthDate monthDate, IEnumerable<Entry> entries)
+            : base(monthDate.ToDayRange(), entries)
+        {                  
+            Date = monthDate;
+            PerDaySummaries = EntriesPerMonthDays.For(monthDate, entries)
+                .Select(x => DaySummary.FromEntries(x.Key, x.Value))
                 .ToList();
-        }       
+        }
+
+        public static MonthSummary FromEntries(MonthDate date, IEnumerable<Entry> entries)
+        {
+            return new MonthSummary(date, entries);
+        }
     }
 }

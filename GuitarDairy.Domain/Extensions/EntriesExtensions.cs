@@ -16,7 +16,6 @@ namespace GuitarDairy.Domain.Extensions
 
         public static IEnumerable<ExerciseSummary> GetPerExerciseSummary(this IEnumerable<Entry> entries)
         {
-            var a = entries.GroupBy(x => x.ExerciseId);
             return entries.GroupBy(x => x.ExerciseId).Select(x => ExerciseSummary.FromEntries(x));
         }
     }
