@@ -6,17 +6,6 @@ using System.Threading.Tasks;
 
 namespace GuitarDairy.Domain.ValueObjects
 {
-    //public record DaysRange : ExclusiveRange<DayDate>
-    //{
-    //    protected DaysRange(ExclusiveRange<DayDate> original) : base(original)
-    //    {
-    //    }
-
-    //    public static DaysRange CreateFor(MonthDate monthDate)
-    //    {
-    //        return new DaysRange(monthDate.);
-    //    }
-    //}
 
     public record ExclusiveRange<T> where T : IComparable<T>
     {

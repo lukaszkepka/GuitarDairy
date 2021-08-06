@@ -1,5 +1,6 @@
 ﻿using GuitarDairy.Domain.ValueObjects;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace GuitarDairy.Domain.Entities
 {
@@ -8,7 +9,7 @@ namespace GuitarDairy.Domain.Entities
         public DayDate Date { get; }
 
         private DaySummary(DayDate date, IEnumerable<Entry> entries) 
-            : base(ExclusiveRange<DayDate>.Create(date, date), entries)
+            : base(DaysRange.ForSingleDay(date), entries)
         {
             Date = date;
         }

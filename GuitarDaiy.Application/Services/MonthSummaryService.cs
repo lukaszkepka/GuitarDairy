@@ -21,7 +21,7 @@ namespace GuitarDairy.Application.Services
 
         public async Task<MonthSummary> GetSummaryFor(MonthDate month)
         {
-            var dateRange = month.ToDayRange();
+            var dateRange = month.ToDaysRange();
             var entriesInMonth = await _entryRepository.AllBetween(dateRange.From, dateRange.To);
 
             return MonthSummary.FromEntries(month, entriesInMonth);

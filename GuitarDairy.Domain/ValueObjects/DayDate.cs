@@ -40,6 +40,11 @@ namespace GuitarDairy.Domain.ValueObjects
             return _internalDateTime.CompareTo(other);
         }
 
+        public override string ToString()
+        {
+            return _internalDateTime.ToString("dd/MM/yyyy");
+        }
+
         public static implicit operator DayDate(DateTime dateTime) => new(dateTime);
 
         public static implicit operator DateTime(DayDate dayDate) => dayDate._internalDateTime;

@@ -9,15 +9,12 @@ namespace GuitarDairy.Domain.Entities
     public class MonthSummary : EntriesSummary
     {
         public MonthDate Date { get; }
-        public ICollection<DaySummary> PerDaySummaries { get; }
+        public virtual IEnumerable<DaySummary> PerDaySummaries => _entriesPerEachDay.Select(x => DaySummary.FromEntries(x.Key, x.Value));
 
         private MonthSummary(MonthDate monthDate, IEnumerable<Entry> entries)
-            : base(monthDate.ToDayRange(), entries)
+            : base(monthDate.ToDaysRange(), entries)
         {                  
             Date = monthDate;
-            PerDaySummaries = EntriesPerMonthDays.For(monthDate, entries)
-                .Select(x => DaySummary.FromEntries(x.Key, x.Value))
-                .ToList();
         }
 
         public static MonthSummary FromEntries(MonthDate date, IEnumerable<Entry> entries)

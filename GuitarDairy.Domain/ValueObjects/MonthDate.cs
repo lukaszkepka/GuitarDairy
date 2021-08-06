@@ -28,26 +28,21 @@ namespace GuitarDairy.Domain.ValueObjects
             return new MonthDate(dateTime);
         }
 
-        public ExclusiveRange<DayDate> ToDayRange()
+        public DaysRange ToDaysRange()
         {
             var start = new DayDate(1, Month, Year);
             var end = new DayDate(DateTime.DaysInMonth(Year, Month), Month, Year);
-            return ExclusiveRange<DayDate>.Create(start, end);
-        }
-
-        public IEnumerable<DayDate> Days()
-        {
-            var dayRange = ToDayRange();
-            int month = Month;
-            int year = Year;
-
-            return Enumerable.Range(dayRange.From.Day, dayRange.To.Day)
-                .Select(x => new DayDate(x, month, year));
+            return DaysRange.CreateFrom(start, end);
         }
 
         public int CompareTo(MonthDate other)
         {
             return _internalDateTime.CompareTo(other._internalDateTime);
+        }
+
+        public override string ToString()
+        {
+            return _internalDateTime.ToString("MM/yyyy");
         }
 
         public static implicit operator DateTime(MonthDate monthDate)

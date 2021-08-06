@@ -24,7 +24,7 @@ namespace GuitarDairy.UnitTests.Domain
             var summary = MonthSummary.FromEntries(monthDate, entries);
 
             // Assert
-            Assert.Equal(DateTime.DaysInMonth(monthDate.Year, monthDate.Month), summary.PerDaySummaries.Count);
+            Assert.Equal(DateTime.DaysInMonth(monthDate.Year, monthDate.Month), summary.PerDaySummaries.Count());
         }
 
         [Fact]

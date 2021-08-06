@@ -7,23 +7,23 @@ using System.Linq;
 
 namespace GuitarDairy.Domain.Entities
 {
-    public class EntriesPerMonthDays : IReadOnlyDictionary<DayDate, IEnumerable<Entry>>
+    public class EntriesPerDays : IReadOnlyDictionary<DayDate, IEnumerable<Entry>>
     {
         private readonly Dictionary<DayDate, IEnumerable<Entry>> _internalDictionary;
 
-        private EntriesPerMonthDays(Dictionary<DayDate, IEnumerable<Entry>> internalDictionary)
+        private EntriesPerDays(Dictionary<DayDate, IEnumerable<Entry>> internalDictionary)
         {
             _internalDictionary = internalDictionary;
         }
 
-        public static EntriesPerMonthDays Empty(MonthDate monthDate)
+        public static EntriesPerDays Empty(DaysRange daysRange)
         {
-            return new EntriesPerMonthDays(monthDate.Days().ToDictionary(day => day, day => Enumerable.Empty<Entry>()));
+            return new EntriesPerDays(daysRange.AsEnumerable().ToDictionary(day => day, day => Enumerable.Empty<Entry>()));
         }
 
-        public static EntriesPerMonthDays For(MonthDate monthDate, IEnumerable<Entry> entries)
+        public static EntriesPerDays For(DaysRange daysRange, IEnumerable<Entry> entries)
         {
-            var result = Empty(monthDate);
+            var result = Empty(daysRange);
             result.Merge(entries.GroupBy(x => x.Date).ToDictionary(x => x.Key, x => x.Cast<Entry>()));
 
             return result;
