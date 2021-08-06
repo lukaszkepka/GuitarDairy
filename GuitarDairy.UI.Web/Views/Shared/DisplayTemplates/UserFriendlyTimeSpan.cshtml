@@ -1,0 +1,8 @@
+﻿@model System.TimeSpan
+
+@{
+    var hourPart = @Model.Hours > 0 ? $"{@Model.Hours.ToString()}h" : string.Empty;
+    var minutePart = $"{@Model.Minutes.ToString()}m";
+}
+
+@hourPart @minutePart

@@ -3,14 +3,26 @@
     ViewData["Title"] = "Home Page";
 }
 
+@section Styles {
+    <link rel="stylesheet" href="~/css/SummaryPage.css" />
+}
+
 <div class="text-center">
     <h1 class="display-4">@Model.Month</h1>
-    <p>Total exercise time = @Model.TotalTimeSpent.ToString()</p>
+    <p>Total exercise time = @Html.DisplayFor(x => x.TotalTimeSpent, "UserFriendlyTimeSpan")</p>
 </div>
 
-@foreach (var item in Model.DaySummaries)
-{
-    <div class="box">
-        <p>@item.Date</p>
-    </div>
-}
+<div class="grid-container">
+    @foreach (var item in Model.DaySummaries)
+    {
+        <div class="grid-item">
+            <p>@item.Date</p>
+            <p>Time spent = @Html.DisplayFor(x => item.TotalTimeSpent, "UserFriendlyTimeSpan")</p>
+
+            @foreach (var exerciseSummary in item.ExerciseSummaries)
+            {
+                <p>@exerciseSummary.Name (@Html.DisplayFor(x => exerciseSummary.TotalTimeSpent, "UserFriendlyTimeSpan"))</p>
+            }
+        </div>
+    }
+</div>
