@@ -30,6 +30,11 @@ namespace GuitarDairy.Domain.ValueObjects
             return new DayDate(_internalDateTime.AddDays(-1));
         }
 
+        public MonthDate ToMonthDate()
+        {
+            return new MonthDate(Month, Year);
+        }
+
         public int CompareTo(DayDate other)
         {
             return _internalDateTime.CompareTo(other);

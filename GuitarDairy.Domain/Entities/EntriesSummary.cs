@@ -19,12 +19,10 @@ namespace GuitarDairy.Domain.Entities
         protected EntriesSummary(ExclusiveRange<DayDate> dateRange, IEnumerable<Entry> entries)
         {
             var dates = entries.Select(x => x.Date).Distinct();
-            var minDate = dates.Min();
-            var maxDate = dates.Max();
 
-            if (entries.Any() && (minDate < dateRange.From || maxDate > dateRange.To))
+            if (entries.Any() && (dates.Min() < dateRange.From || dates.Max() > dateRange.To))
             {
-                throw new ArgumentException($"Entry dates should be in range {dateRange}. Was {minDate}");
+                throw new ArgumentException($"Entry dates should be in range {dateRange}. Was {dates.Min()} or {dates.Max()}");
             }
 
             _entries = entries.ToList();

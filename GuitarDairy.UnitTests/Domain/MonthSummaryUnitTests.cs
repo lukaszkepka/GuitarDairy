@@ -43,7 +43,7 @@ namespace GuitarDairy.UnitTests.Domain
                 .Generate();
 
             // Act
-            var summary = MonthSummary.FromEntries(dayDate, entries);
+            var summary = MonthSummary.FromEntries(dayDate.ToMonthDate(), entries);
             var perDaySummaries = summary.PerDaySummaries;
 
             // Assert
@@ -67,7 +67,7 @@ namespace GuitarDairy.UnitTests.Domain
                 .Generate();
 
             // Act
-            var summary = MonthSummary.FromEntries(dayDate, entries);
+            var summary = MonthSummary.FromEntries(dayDate.ToMonthDate(), entries);
 
             // Assert
             summary.PerDaySummaries.Should().BeInAscendingOrder(x => x.Date);
