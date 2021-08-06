@@ -1,9 +1,8 @@
 ﻿using GuitarDairy.Application.Services.Interfaces;
 using GuitarDairy.Domain.ValueObjects;
+using GuitarDairy.UI.Web.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace GuitarDairy.UI.Web.Controllers
@@ -17,28 +16,15 @@ namespace GuitarDairy.UI.Web.Controllers
             _summaryService = summaryService;
         }
 
-
-
         // GET: Summary
         //[Route("Summary/Current")]
         public async Task<IActionResult> Index()
         {
             var currentMonth = MonthDate.FromDateTime(DateTime.Now);
             var summary = await _summaryService.GetSummaryFor(currentMonth);
+            var viewModel = MonthSummaryViewModel.FromModel(summary);
 
-            return View();
+            return View(viewModel);
         }
-    }
-
-    public record DaySummaryViewModel
-    {
-
-    }
-
-    public record MonthSummaryViewModel
-    {
-        public string Month { get; set; }
-        public TimeSpan TotalTimeSpent { get; set; }
-        public List<DaySummaryViewModel> DaySummaries { get; set; }
     }
 }

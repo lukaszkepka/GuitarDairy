@@ -21,8 +21,4 @@
     <ProjectReference Include="..\GuitarDairy.Infrastructure\GuitarDairy.Infrastructure.EF.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="ViewModels\" />
-  </ItemGroup>
-
 </Project>
