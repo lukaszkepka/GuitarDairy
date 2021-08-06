@@ -6,26 +6,26 @@ using System.Threading.Tasks;
 
 namespace GuitarDairy.Domain.ValueObjects
 {
-    public record MonthDate : IComparable<MonthDate>
+    public readonly struct MonthDate : IComparable<MonthDate>
     {
-        public int Month { get; }
-        public int Year { get; }
+        private readonly DateTime _internalDateTime;
 
-        private static readonly ExclusiveRange<int> ValidYearsRange = ExclusiveRange<int>.Create(1, 9999);
-        private static readonly ExclusiveRange<int> ValidMonthsRange = ExclusiveRange<int>.Create(1, 12);
+        public int Month => _internalDateTime.Month;
+        public int Year => _internalDateTime.Year;
 
         public MonthDate(int month, int year)
+            : this(new DateTime(year, month, 1))
         {
-            Month = month;
-            Year = year;
+        }
 
-            ValidateMonth(month);
-            ValidateYear(year);
+        private MonthDate(DateTime dateTime)
+        {
+            _internalDateTime = new DateTime(dateTime.Year, dateTime.Month, 1);
         }
 
         public static MonthDate FromDateTime(DateTime dateTime)
         {
-            return dateTime;
+            return new MonthDate(dateTime);
         }
 
         public ExclusiveRange<DayDate> ToDayRange()
@@ -37,46 +37,32 @@ namespace GuitarDairy.Domain.ValueObjects
 
         public IEnumerable<DayDate> Days()
         {
-            return Enumerable.Range(1,DateTime.DaysInMonth(Year, Month)).Select(x => new DayDate(x, Month, Year));
+            var dayRange = ToDayRange();
+            int month = Month;
+            int year = Year;
+
+            return Enumerable.Range(dayRange.From.Day, dayRange.To.Day)
+                .Select(x => new DayDate(x, month, year));
         }
 
-        private static void ValidateMonth(int month)
+        public int CompareTo(MonthDate other)
         {
-            if (ValidMonthsRange.DoesNotContain(month))
-            {
-                throw new ArgumentOutOfRangeException($"Month should be in range {ValidMonthsRange}");
-            }
+            return _internalDateTime.CompareTo(other._internalDateTime);
         }
 
-        private static void ValidateYear(int year)
+        public static implicit operator DateTime(MonthDate monthDate)
         {
-            if (ValidYearsRange.DoesNotContain(year))
-            {
-                throw new ArgumentOutOfRangeException($"Year should be in range {ValidYearsRange}");
-            }
-        }      
-
-        public static implicit operator DateTime(MonthDate dateTime)
-        {
-            return new DateTime(dateTime.Year, dateTime.Month, 1);
+            return monthDate._internalDateTime;
         }
 
         public static implicit operator MonthDate(DateTime dateTime)
         {
-            return new MonthDate(dateTime.Month, dateTime.Year);
+            return new MonthDate(dateTime);
         }
 
-        public static bool operator >=(MonthDate item1, MonthDate item2) => (DateTime)item1 >= (DateTime)item2;
-
-        public static bool operator <=(MonthDate item1, MonthDate item2) => (DateTime)item1 <= (DateTime)item2;
-
-        public static bool operator >(MonthDate item1, MonthDate item2) => (DateTime)item1 > (DateTime)item2;
-
-        public static bool operator <(MonthDate item1, MonthDate item2) => (DateTime)item1 < (DateTime)item2;
-
-        public int CompareTo(MonthDate other)
-        {
-            return ((DateTime)this).CompareTo(other);
-        }
+        public static bool operator >=(MonthDate item1, MonthDate item2) => item1._internalDateTime >= item2._internalDateTime;
+        public static bool operator <=(MonthDate item1, MonthDate item2) => item1._internalDateTime <= item2._internalDateTime;
+        public static bool operator >(MonthDate item1, MonthDate item2) => item1._internalDateTime > item2._internalDateTime;
+        public static bool operator <(MonthDate item1, MonthDate item2) => item1._internalDateTime < item2._internalDateTime;
     }
 }

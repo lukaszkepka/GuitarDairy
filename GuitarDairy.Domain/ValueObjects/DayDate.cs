@@ -2,57 +2,45 @@
 
 namespace GuitarDairy.Domain.ValueObjects
 {
-    public record DayDate : MonthDate, IComparable<DayDate>
+    public readonly struct DayDate : IComparable<DayDate>
     {
-        public int Day { get; }
+        private readonly DateTime _internalDateTime;
 
-        public DayDate(int day, int month, int year) : base(month, year)
+        public int Day => _internalDateTime.Day;
+        public int Month => _internalDateTime.Month;
+        public int Year => _internalDateTime.Year;
+
+        public DayDate(int day, int month, int year)
+            : this(new DateTime(year, month, day))
         {
-            ValidateDay(day, month, year);
-            Day = day;
+        }
+
+        private DayDate(DateTime dateTime)
+        {
+            _internalDateTime = dateTime.Date;
         }
 
         public DayDate NextDay()
         {
-            return ((DateTime)this).AddDays(1);
+            return new DayDate(_internalDateTime.AddDays(1));
         }
 
-        private void ValidateDay(int day, int month, int year)
+        public DayDate PreviousDay()
         {
-            var validDaysRange = ExclusiveRange<int>.Create(1, DateTime.DaysInMonth(year, month));
-
-            if (validDaysRange.DoesNotContain(day))
-            {
-                throw new ArgumentOutOfRangeException($"Month should be in range {validDaysRange}");
-            }
+            return new DayDate(_internalDateTime.AddDays(-1));
         }
-
-        public static implicit operator DayDate(DateTime dateTime)
-        {
-            return new DayDate(dateTime.Day, dateTime.Month, dateTime.Year);
-        }
-
-        public static implicit operator DateTime(DayDate dayDate)
-        {
-            if(dayDate is null)
-            {
-                return new DateTime();
-            }
-
-            return new DateTime(dayDate.Year, dayDate.Month, dayDate.Day);
-        }
-
-        public static bool operator >=(DayDate item1, DayDate item2) => (DateTime)item1 >= (DateTime)item2;
-
-        public static bool operator <=(DayDate item1, DayDate item2) => (DateTime)item1 <= (DateTime)item2;
-
-        public static bool operator >(DayDate item1, DayDate item2) => (DateTime)item1 > (DateTime)item2;
-
-        public static bool operator <(DayDate item1, DayDate item2) => (DateTime)item1 < (DateTime)item2;
 
         public int CompareTo(DayDate other)
         {
-            return ((DateTime)this).CompareTo(other);
+            return _internalDateTime.CompareTo(other);
         }
+
+        public static implicit operator DayDate(DateTime dateTime) => new(dateTime);
+
+        public static implicit operator DateTime(DayDate dayDate) => dayDate._internalDateTime;
+        public static bool operator >=(DayDate item1, DayDate item2) => item1._internalDateTime >= item2._internalDateTime;
+        public static bool operator <=(DayDate item1, DayDate item2) => item1._internalDateTime <= item2._internalDateTime;
+        public static bool operator >(DayDate item1, DayDate item2) => item1._internalDateTime > item2._internalDateTime;
+        public static bool operator <(DayDate item1, DayDate item2) => item1._internalDateTime < item2._internalDateTime;
     }
 }
