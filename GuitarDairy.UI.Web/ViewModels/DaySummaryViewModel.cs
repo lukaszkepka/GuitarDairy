@@ -7,7 +7,7 @@ namespace GuitarDairy.UI.Web.ViewModels
 {
     public record DaySummaryViewModel
     {
-        public string Date { get; private init; }
+        public DateTime Date { get; private init; }
 
         public TimeSpan TotalTimeSpent { get; private init; }
 
@@ -17,7 +17,7 @@ namespace GuitarDairy.UI.Web.ViewModels
         {
             return new DaySummaryViewModel
             {
-                Date = daySummary.Date.Day.ToString(),
+                Date = daySummary.Date,
                 TotalTimeSpent = daySummary.TotalTimeSpent,
                 ExerciseSummaries = daySummary.ExerciseSummaries
                     .Select(x => ExerciseSummaryViewModel.FromModel(x))

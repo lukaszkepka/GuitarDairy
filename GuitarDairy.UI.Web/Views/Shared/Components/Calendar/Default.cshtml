@@ -1,0 +1,20 @@
+@model IEnumerable<GuitarDairy.UI.Web.ViewComponents.CalendarItem>;
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/Calendar.css" />
+}
+
+<div class="calendar-container">
+    @foreach (var item in Model)
+    {
+        <div class="calendar-item">
+            <p>@item.Date?.ToString("dd")</p>
+            @*<p>Time spent = @Html.DisplayFor(x => item.TotalTimeSpent, "UserFriendlyTimeSpan")</p>
+
+                @foreach (var exerciseSummary in item.ExerciseSummaries)
+                {
+                    <p>@exerciseSummary.Name (@Html.DisplayFor(x => exerciseSummary.TotalTimeSpent, "UserFriendlyTimeSpan"))</p>
+                }*@
+        </div>
+    }
+</div>

@@ -4,7 +4,7 @@
 }
 
 @section Styles {
-    <link rel="stylesheet" href="~/css/SummaryPage.css" />
+    <link rel="stylesheet" href="~/css/Calendar.css" />
 }
 
 <div class="text-center">
@@ -12,17 +12,4 @@
     <p>Total exercise time = @Html.DisplayFor(x => x.TotalTimeSpent, "UserFriendlyTimeSpan")</p>
 </div>
 
-<div class="grid-container">
-    @foreach (var item in Model.DaySummaries)
-    {
-        <div class="grid-item">
-            <p>@item.Date</p>
-            <p>Time spent = @Html.DisplayFor(x => item.TotalTimeSpent, "UserFriendlyTimeSpan")</p>
-
-            @foreach (var exerciseSummary in item.ExerciseSummaries)
-            {
-                <p>@exerciseSummary.Name (@Html.DisplayFor(x => exerciseSummary.TotalTimeSpent, "UserFriendlyTimeSpan"))</p>
-            }
-        </div>
-    }
-</div>
+@await Component.InvokeAsync("Calendar", Model)
